@@ -23,6 +23,9 @@ public class VariableMetric {
 	public String getVariableName() {
 		return variableName;
 	}
+	public int getVariableAppearances() {
+		return variableAppearances;
+	}
 
 	@Override
 	public String toString() {

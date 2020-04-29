@@ -25,6 +25,9 @@ public class FieldMetric {
 	public String getFieldName() {
 		return fieldName;
 	}
+	public int getFieldAppearances() {
+		return fieldAppearances;
+	}
 
 	@Override
 	public String toString() {

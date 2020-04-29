@@ -287,4 +287,29 @@ public abstract class IntegrationBaseTest {
 
 		Assert.assertEquals(allRelevantCommitIds.size(), allCommitMetaDatas.size());
 	}
+
+	//Test if any of the field metric entries are missing
+	@Test
+	public void missingFieldAppearances(){
+		List<RefactoringCommit> missedRefactorings = getRefactoringCommits().stream().filter(refactoring -> refactoring.getFieldMetrics() != null && refactoring.getFieldMetrics().getFieldAppearances() == -1)
+				.collect(Collectors.toList());
+		Assert.assertEquals(0, missedRefactorings.size());
+
+		List<StableCommit> missedStableCommits = getStableCommits().stream().filter(stableCommit -> stableCommit.getFieldMetrics() != null && stableCommit.getFieldMetrics().getFieldAppearances() == -1)
+				.collect(Collectors.toList());
+		Assert.assertEquals(0, missedStableCommits.size());
+	}
+
+	//Test if any of the variable metric entries are missing
+	@Test
+	public void missingVariableAppearances(){
+		List<RefactoringCommit> missedRefactorings = getRefactoringCommits().stream().filter(refactoring ->
+				refactoring.getVariableMetrics() != null && !(refactoring.getRefactoring().equals("Extract Variable") || refactoring.getRefactoring().equals("Merge Variable")) && refactoring.getVariableMetrics().getVariableAppearances() == -1)
+				.collect(Collectors.toList());
+		Assert.assertEquals(0, missedRefactorings.size());
+
+		List<StableCommit> missedStableCommits = getStableCommits().stream().filter(stableCommit -> stableCommit.getVariableMetrics() != null && stableCommit.getVariableMetrics().getVariableAppearances() == -1)
+				.collect(Collectors.toList());
+		Assert.assertEquals(0, missedStableCommits.size());
+	}
 }
